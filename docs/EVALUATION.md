@@ -1,0 +1,15 @@
+# Evaluation protocol and result status
+
+No surgical benchmark has been measured. No performance claims are made. Synthetic smoke-test results validate code execution only and cannot estimate surgical phase recognition quality.
+
+Evaluate each case separately to prevent artificial inter-case transitions. Accuracy, macro F1 (all seven labels, zero for unsupported labels), weighted F1, per-class precision/recall/F1, and the confusion matrix use scikit-learn. The report preserves per-case metrics and arithmetic mean case accuracy/F1; this is not pooled frame-weighted accuracy.
+
+Segments are maximal consecutive runs of the same argmax label. Segment F1 greedily matches same-label segments one-to-one by temporal intersection over union at 0.10, 0.25, and 0.50. Edit score is 100×(1−Levenshtein distance / maximum collapsed label-sequence length). Boundary error greedily matches boundaries one-to-one only when their adjacent ordered class pair agrees. It reports mean absolute sample-time error, missed reference boundaries, and unmatched predicted boundaries; no timing tolerance is imposed. This is an explicitly defined local metric, not a claim of identical implementation to every published benchmark. Segment count error is predicted minus reference count: positive indicates over-segmentation, negative under-segmentation. Switches/minute quantify instability. Absence of matched boundaries yields null timing error, never zero.
+
+Benchmark A: `model: cnn`; B: `model: lstm`, `bidirectional: false`; C: same B checkpoint evaluated with `--alpha 0.4`; D: `bidirectional: true`, offline only. Keep splits, CNN weights, training budget and preprocessing constant. Run multiple seeds before drawing comparisons. Save each config and report.
+
+Ablations: sequence_length [16,32,64], sample_fps [0.5,1,2], backbone [resnet18,resnet50], hidden [128,512], alpha [1,0.4], class_weighting [false,true], loss [cross_entropy,focal]. Re-extract when sampling changes; regenerate embeddings when backbone changes. Cached features are only valid for the exact CNN and preprocessing used. End-to-end models must be evaluated from frames, not from original frozen embeddings.
+
+The evaluator can measure temporal-head-only latency over embeddings or CNN+temporal latency with `--frames`. Neither includes original video decoding, preprocessing, network transport or display. Predictor latency includes preprocessing and device synchronization via CPU probability conversion. API job processing time includes decoding and model inference. Decode/source FPS, sampled FPS, measured inference FPS, and display/playback FPS are distinct quantities. Synthetic latency is not representative of operative footage or deployment hardware.
+
+Architecture and causality tests use untrained weights explicitly as engineering fixtures. Production Predictor refuses checkpoints lacking trained provenance. Provenance is metadata, not cryptographic evidence of model quality: install only trusted checkpoints. CUDA tests skip on hardware without CUDA; Apple MPS is tested when available.

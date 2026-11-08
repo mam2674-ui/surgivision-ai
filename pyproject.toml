@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "surgivision-ai"
+version = "0.1.0"
+requires-python = ">=3.9"
+dependencies = ["torch>=2.2", "torchvision>=0.17", "opencv-python-headless>=4.8", "fastapi>=0.110", "uvicorn[standard]>=0.27", "python-multipart>=0.0.18", "numpy", "pillow", "scikit-learn", "pyyaml", "tensorboard"]
+[project.optional-dependencies]
+test = ["pytest", "httpx"]
+[tool.setuptools.packages.find]
+include = ["ml*", "backend*"]
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests", "backend/tests"]

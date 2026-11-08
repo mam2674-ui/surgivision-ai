@@ -1,0 +1,16 @@
+.data/
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.pt
+*.npy
+__pycache__/
+.pytest_cache/
+.env
+.venv/
+node_modules/
+.next/
+out/
+runs/
+data/

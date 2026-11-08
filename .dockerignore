@@ -1,0 +1,12 @@
+.git
+.data
+data
+runs
+**/node_modules
+**/.next
+**/out
+**/__pycache__
+*.mp4
+*.avi
+*.pt
+.env
