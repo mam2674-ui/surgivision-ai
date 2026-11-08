@@ -42,3 +42,13 @@
 .timeline-track>span{color:#5e7184}
 .player-controls input{accent-color:#5799d0}
 .setup-note button,.model-summary button,.video-foot button{color:#286498}
+
+.procedure-library{max-width:760px;padding:24px}
+.procedure-library label{display:block;font-weight:600;margin-bottom:8px}
+.procedure-library select{width:100%;max-width:420px;border:1px solid #bdd7ef;border-radius:5px;background:#f0f6fd;color:#174b77;padding:8px}
+.procedure-details{margin-top:24px}
+.procedure-details h2{font-size:18px}
+.procedure-details h3{margin-top:20px}
+.procedure-details p{margin-top:8px;color:#526779}
+.procedure-details ul{list-style:disc;padding-left:20px;margin:12px 0 18px;line-height:1.8}
+.procedure-details a{color:#235886;text-decoration:underline;margin-right:16px}
